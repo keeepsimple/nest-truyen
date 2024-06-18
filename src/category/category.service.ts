@@ -1,30 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCategoryDto } from './dto/create-category.dto';
+import { toSlug } from 'src/common/slug-helper';
 import { PrismaService } from 'src/database/prisma.service';
+import { CreateCategoryDto } from './dto/create-category.dto';
 import { SearchCategoryDto } from './dto/search-category.dto';
 
 @Injectable()
 export class CategoryService {
   constructor(private prismaService: PrismaService) {}
 
-  upsert(createCategoryDto: CreateCategoryDto) {
+  async upsert(createCategoryDto: CreateCategoryDto) {
     const slug = toSlug(createCategoryDto.name);
-    const category = this.prismaService.category.upsert({
+    const category = await this.prismaService.category.upsert({
       where: { slug: slug },
-      update: createCategoryDto,
-      create: {...createCategoryDto, slug: slug},
+      update: { ...createCategoryDto, slug: slug },
+      create: { ...createCategoryDto, slug: slug },
     });
 
     return category;
   }
 
-  findAll(searchCategoryDto: SearchCategoryDto) {
-    return this.prismaService.category.findMany({
+  async findAll(searchCategoryDto: SearchCategoryDto) {
+    return await this.prismaService.category.findMany({
       skip: searchCategoryDto.skip,
       take: searchCategoryDto.take,
       where: {
         name: {
-          contains: searchCategoryDto.name,
+          contains: searchCategoryDto.keyword,
         },
         slug: {
           contains: searchCategoryDto.slug,
@@ -40,23 +41,14 @@ export class CategoryService {
     });
   }
 
-  findOne(id: string) {
-    return this.prismaService.category.findFirst({
+  async findOne(id: string) {
+    return await this.prismaService.category.findFirst({
       where: { id: id },
-      include: { Comic: true }
+      include: { Comic: true },
     });
   }
 
-  remove(id: string, isHardDelete: boolean) {
-    if (isHardDelete) {
-      return this.prismaService.category.delete({
-        where: { id: id },
-      });
-    } else {
-      return this.prismaService.category.update({
-        where: { id: id },
-        data: { isDeleted: true },
-      });
-    }
+  async remove(id: string) {
+    return await this.prismaService.category.softDelete({ id: id });
   }
 }

@@ -1,4 +1,4 @@
-function toSlug(str) {
+export function toSlug(str) {
   // Chuyển hết sang chữ thường
   str = str.toLowerCase();
 

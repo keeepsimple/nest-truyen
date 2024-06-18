@@ -1,12 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { PagedDto } from './paged.dto';
 
-export class PagedDto {
+export class SearchDto extends PagedDto {
   @ApiProperty({ required: false })
-  skip: number = 0;
-
-  @ApiProperty({ required: false })
-  take: number = 10;
+  keyword?: string;
 
   @ApiProperty({ required: false })
-  sort: string;
+  slug?: string;
 }

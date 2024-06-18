@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MaxLength, MinLength } from 'class-validator';
 
-export class CreateComicDto {
+export class CreateAuthorDto {
   @ApiProperty()
-  @MaxLength(50)
   @MinLength(3)
-  title: string;
+  @MaxLength(50)
+  name: string;
+
+  @ApiProperty()
+  description: string;
 
   @ApiProperty({ required: false })
-  description?: string;
-
-  @ApiProperty()
-  categoryIds: string[];
+  comicIds: string[];
 }

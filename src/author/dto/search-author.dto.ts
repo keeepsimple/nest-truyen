@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { SearchDto } from 'src/common/search.dto';
 
-export class SearchComicDto extends SearchDto {
+export class SearchAuthorDto extends SearchDto {
   @ApiProperty({ required: false })
-  categoryIds?: string[];
+  comicIds?: string[];
 }

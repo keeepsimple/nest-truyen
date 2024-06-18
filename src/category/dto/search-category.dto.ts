@@ -1,11 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { PagedDto } from "src/common/paged.dto";
+import { ApiProperty } from '@nestjs/swagger';
+import { SearchDto } from 'src/common/search.dto';
 
-export class SearchCategoryDto extends PagedDto{
-    @ApiProperty({ required: false })
-    name?: string;
-    @ApiProperty({ required: false })
-    slug?: string;
-    @ApiProperty({ required: false })
-    comicIds?: string[];
+export class SearchCategoryDto extends SearchDto {
+  @ApiProperty({ required: false })
+  comicIds?: string[];
 }

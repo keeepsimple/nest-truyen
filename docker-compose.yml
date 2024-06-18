@@ -1,6 +1,6 @@
 services:
   # truyen-api:
-  #   build: 
+  #   build:
   #     context: .
   #     dockerfile: Dockerfile
   #   ports:
@@ -19,9 +19,8 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ntruyen
     ports:
-      - "5678:5432"
-  redis_nt:
-    image: redis
-    ports:
-      - "6379:6379"
-      
+      - '5678:5432'
+  # redis_nt:
+  #   image: redis
+  #   ports:
+  #     - "6379:6379"
