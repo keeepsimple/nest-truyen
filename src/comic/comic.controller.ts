@@ -24,7 +24,7 @@ export class ComicController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get comic by id' })
-  async findOne(@Param('id') id: string): Promise<Comic> {
+  async findOne(@Param('id') id: string): Promise<Comic | null> {
     return await this.comicService.findOne(id);
   }
 

@@ -26,7 +26,7 @@ export class CategoryController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get category by id' })
-  async findOne(@Param('id') id: string): Promise<Category> {
+  async findOne(@Param('id') id: string): Promise<Category | null> {
     return await this.categoryService.findOne(id);
   }
 

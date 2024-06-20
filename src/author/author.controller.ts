@@ -21,7 +21,7 @@ export class AuthorController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Author> {
+  async findOne(@Param('id') id: string): Promise<Author | null> {
     return await this.authorService.findOne(id);
   }
 
