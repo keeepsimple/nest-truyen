@@ -27,27 +27,83 @@ model Category {
 }
 
 model Comic {
-  id          String     @id @default(cuid())
-  title       String
-  description String?
-  status      Boolean    @default(true)
-  isDeleted   Boolean    @default(false)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  deletedAt   DateTime?
-  slug        String?    @unique
-  category    Category[]
-  author      Author[]
+  id            String         @id @default(cuid())
+  title         String
+  description   String?
+  status        Boolean        @default(true)
+  isDeleted     Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+  slug          String?        @unique
+  category      Category[]
+  author        Author[]
+  chapter       Chapter[]
+  comicTracking ComicTracking?
+  comment       Comment[]
 }
 
-model Author{
-  id          String     @id @default(cuid())
+model Chapter {
+  id            String         @id @default(cuid())
+  title         String
+  isPublic      Boolean        @default(true)
+  isDeleted     Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+  slug          String?        @unique
+  comicId       String
+  comic         Comic?         @relation(fields: [comicId], references: [id])
+  chapterDetail ChapterDetail?
+  Comment       Comment[]
+}
+
+model ChapterDetail {
+  id        String    @id @default(cuid())
+  content   String?
+  images    String?
+  isDeleted Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  chapterId String    @unique
+  chapter   Chapter?  @relation(fields: [chapterId], references: [id])
+}
+
+model ComicTracking {
+  id        String    @id @default(cuid())
+  comicId   String    @unique
+  views     Int       @default(0)
+  follow    Int       @default(0)
+  likes     Int       @default(0)
+  isDeleted Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  comic     Comic?    @relation(fields: [comicId], references: [id])
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  isDeleted Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  comicId   String
+  comic     Comic?    @relation(fields: [comicId], references: [id])
+  chapterId String?
+  chapter   Chapter?  @relation(fields: [chapterId], references: [id])
+}
+
+model Author {
+  id          String    @id @default(cuid())
   name        String
   description String?
-  isDeleted   Boolean    @default(false)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  isDeleted   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
-  slug        String?    @unique
+  slug        String?   @unique
   Comic       Comic[]
 }
