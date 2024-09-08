@@ -1,17 +1,17 @@
 services:
-  # truyen-api:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - NODE_ENV=development
-  #     - PORT=3000
-  #     - DB_PORT=5678
-  #     - DB_HOST=postgres_db
-  #   volumes:
-  #     - ./src:/usr/src/app/src
+  truyen-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_PORT=5678
+      - DB_HOST=postgres_db
+    volumes:
+      - ./src:/usr/src/app/src
   postgres_db:
     image: postgres
     environment:
