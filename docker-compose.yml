@@ -10,6 +10,10 @@ services:
       - PORT=3000
       - DB_PORT=5678
       - DB_HOST=postgres_db
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_NAME=ntruyen
+      - DB_TYPE=postgres
     volumes:
       - ./src:/usr/src/app/src
   postgres_db:
