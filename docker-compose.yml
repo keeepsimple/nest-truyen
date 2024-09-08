@@ -14,6 +14,7 @@ services:
       - DB_PASS=postgres
       - DB_NAME=ntruyen
       - DB_TYPE=postgres
+      - DATABASE_URL="postgresql://postgres:postgres@localhost:5678/ntruyen?schema=public"
     volumes:
       - ./src:/usr/src/app/src
   postgres_db:
